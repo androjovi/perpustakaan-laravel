@@ -30,9 +30,9 @@ class BukuController extends Controller
 		$buku = new Buku;
 		$buku->kode_buku 		= $request->kode_buku;
 		$buku->judul_buku 		= $request->judul_buku;
-		$buku->kategori_buku 	= $request->kategori;
-		$buku->pengarang_buku 	= $request->pengarang;
-		$buku->penerbit_buku 	= $request->penerbit;
+		$buku->kategori_buku 	= $request->kategori_buku;
+		$buku->pengarang_buku 	= $request->pengarang_buku;
+		$buku->penerbit_buku 	= $request->penerbit_buku;
 		$buku->jumlah_halaman 	= $request->jumlah_halaman;
 		
 			if ($buku->save() ){
@@ -70,5 +70,23 @@ class BukuController extends Controller
 				 }else{
 					 echo "<i>Kode tidak terdaftar pada database";
 				 }
+	}
+	
+	function edit(BukuRequest $request){
+		
+		$buku = Buku::where('id','=',Input::get('id_buku'))->first();
+		$buku->judul_buku 		= $request->judul_buku;
+		$buku->kategori_buku 	= $request->kategori_buku;
+		$buku->pengarang_buku 	= $request->pengarang_buku;
+		$buku->penerbit_buku 	= $request->penerbit_buku;
+		$buku->jumlah_halaman 	= $request->jumlah_halaman;
+		
+			if ($buku->save() ) {
+				return redirect('/')->with('success','Data berhasil di update');
+			}else{
+				return redirect('/')->with('error','GAGAL');
+			}
+		
+		
 	}
 }

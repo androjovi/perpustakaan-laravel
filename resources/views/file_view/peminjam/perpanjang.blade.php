@@ -57,46 +57,14 @@
 					<div class="header">
 						<h4 class="title">Daftar peminjam</h4>
 					</div>
-					{{ Form::open(['url' => '/tambah_peminjam', 'method' => 'post']) }}
+					{{ Form::open(['url' => "/proses_perpanjang", 'method' => 'post']) }}
 					<div class="content">
 						<div class="row">
-							<div class="col-md-12">
-								<label>Nomor kartu anggota</label>
-								<div class="input-group">
-									<input type="text" name="no_anggota" id="input_anggota" class="form-control" placeholder="Nomor keanggotaan" required>
-									<span class="input-group-btn">
-                                        <button class="btn btn-danger" onclick="cek_kartu()" type="button">CEK ANGGOTA</button>
-                                    </span>
-								</div>
-								<div id="hasil_kartu"></div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-12">
-								<label>Kode buku</label>
-								<div class="input-group">
-									<input type="text" name="kode_buku" id="input_buku" class="form-control" placeholder="Kode buku" required>
-									<span class="input-group-btn">
-                                        <button class="btn btn-info" onclick="cek_buku()" type="button">CEK BUKU</button>
-                                    </span>
-								</div>
-								<div id="hasil_buku"></div>
-							</div>
-						</div>
-
-						<div class="row">
 							<div class="col-md-6">
-								<label>Dari tanggal</label>
-								<div class="input-group">
-									<input type="text" name="dari_tanggal" class="form-control" id="datepicker" required>
-									<span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
-							<div class="col-md-6">
+					@foreach($query as $k)			
+								<h5>Dari tanggal : {{ $k->dari_tanggal }} | Sampai tanggal : {{ $k->sampai_tanggal }} </h5>
 								<label>Sampai tanggal</label>
+									<input type="text" style="display:none;" name="kde" value="{{ $k->id }}" required>
 								<div class="input-group">
 									<input type="text" name="sampai_tanggal" class="form-control" id="datepicker2" required>
 									<span class="input-group-addon">
@@ -109,8 +77,8 @@
 							</div>
 						</div>
 
-
-						<button type="submit" id="tumbul" onclick="return hapus_confirm()" class="btn btn-info btn-fill pull-right">Submit</button>
+						@endforeach
+						<button type="submit" id="tumbul" class="btn btn-info btn-fill pull-right">Submit</button>
 
 
 						<div class="clearfix"></div>
@@ -119,7 +87,7 @@
 
 
 
-
+&copy; Andro;
 					</div>
 				</div>
 			</div>
@@ -128,15 +96,6 @@
 </div>
 <script>
 	$(function() {
-		jQuery("#datepicker").datepicker({
-
-			dateFormat: "dd-mm-yy",
-			showAnim: "",
-			minDate: -0,
-			maxDate: "+1D",
-
-		});
-
 		jQuery("#datepicker2").datepicker({
 
 			dateFormat: "dd-mm-yy",

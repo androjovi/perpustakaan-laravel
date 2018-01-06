@@ -47,9 +47,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="maps.html">
+                    <a href="{{ URL::to('list_peminjam') }}">
                         <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
+                        <p>LIST PEMINJAM</p>
                     </a>
                 </li>
                 <li>

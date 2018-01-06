@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Peminjam;
+use Illuminate\Support\Facades\Input;
 use View;
 use Redirect;
+use App\Http\Requests\PeminjamRequest;
+use Session;
 
 class PeminjamController extends Controller
 {
@@ -16,7 +19,8 @@ class PeminjamController extends Controller
      */
     public function index()
     {
-        
+        return view::make('file_view.peminjam.list_peminjam')
+			->with(['query' => Peminjam::where('status_pengembalian','=',0)->get()]);
     }
 
     /**
@@ -35,9 +39,21 @@ class PeminjamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PeminjamRequest $request)
     {
-        //
+        $peminjam = new Peminjam;
+		$peminjam->nomor_kartu 			= $request->no_anggota;
+		$peminjam->kode_buku 			= $request->kode_buku;
+		$peminjam->dari_tanggal 		= $request->dari_tanggal;
+		$peminjam->sampai_tanggal 		= $request->sampai_tanggal;
+		$peminjam->status_pengembalian 	= 0;
+		
+			if ($peminjam->save() ){
+				return redirect('/peminjam')->with('success','Data berhasil ditambahkan');
+			}else{
+				return redirect('/peminjam')->with('error','GAGAL');
+			}
+			
     }
 
     /**
@@ -59,7 +75,9 @@ class PeminjamController extends Controller
      */
     public function edit($id)
     {
-        //
+		
+        return view::make('file_view.peminjam.perpanjang')
+			->with(['query' => Peminjam::where('kode_buku', '=', $id)->get()]);
     }
 
     /**
@@ -69,9 +87,16 @@ class PeminjamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update()
     {
-        //
+        $buku = Peminjam::where('id','=', Input::get('kde'))->first();
+		$buku->sampai_tanggal = Input::get('sampai_tanggal');
+			
+			if ($buku->save() ){
+				return redirect('/list_peminjam')->with('success','Data berhasil diganti');
+			}else{
+				return redirect('/list_peminjam')->with('error','GATOT');
+			}
     }
 
     /**

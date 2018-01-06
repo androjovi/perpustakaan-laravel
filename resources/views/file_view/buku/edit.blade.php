@@ -33,12 +33,14 @@ function ff(){
                     <h4 class="title">Pendaftaran buku</h4>
                 </div>
                 <div class="content">
-                {{ Form::open(['url' => '/proses_tambah' ]) }}
+                {{ Form::open(['url' => '/proses_editbuku' ]) }}
+					
+					@foreach ($query as $k)
                         <div class="row">
                             <div class="col-md-12">
                             <label>JUDUL BUKU</label>
                                 <div class="form-group">
-                                    <input type="text" id="judul" class="form-control" placeholder="Judul buku..." name="judul_buku" required >
+                                    <input type="text" name="judul_buku" id="judul" value="{{ $k->judul_buku }}" class="form-control" placeholder="Judul buku..." required >
                                 </div>
                             </div>
                         </div>
@@ -47,7 +49,7 @@ function ff(){
                             <div class="col-md-6">
                             <label>KATEGORI BUKU</label>
                                 <div class="form-group">
-                                    <input type="text" name="kategori_buku" class="form-control" placeholder="Kategori buku..." required>
+                                    <input type="text" name="kategori_buku" value="{{ $k->kategori_buku }}" class="form-control" placeholder="Kategori buku..." required>
                                 </div>
                             </div>
                               
@@ -55,7 +57,7 @@ function ff(){
                             <div class="col-md-6">
                             <label>PENGARANG BUKU</label>
                                 <div class="form-group">
-                                    <input type="text" name="pengarang_buku" class="form-control" placeholder="Pengarang buku..." required>
+                                    <input type="text" name="pengarang_buku" value="{{ $k->pengarang_buku }}" class="form-control" placeholder="Pengarang buku..." required>
                                 </div>
                             </div>
                         </div>            
@@ -63,13 +65,13 @@ function ff(){
                             <div class="col-md-6">
                             <label>PENERBIT BUKU</label>
                                 <div class="form-group">
-                                    <input type="text" name="penerbit_buku" class="form-control" placeholder="Penerbit buku..." required>
+                                    <input type="text" name="penerbit_buku" value="{{ $k->penerbit_buku }}" class="form-control" placeholder="Penerbit buku..." required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                             <label>JUMLAH HALAMAN</label>
                                 <div class="form-group">
-                                    <input type="number" name="jumlah_halaman" class="form-control" placeholder="Jumlah halaman buku..." required>
+                                    <input type="number" name="jumlah_halaman" value="{{ $k->jumlah_halaman }}" class="form-control" placeholder="Jumlah halaman buku..." required>
                                 </div>
                             </div>
                         </div>    
@@ -77,12 +79,13 @@ function ff(){
                             <div class="col-md-4">
                             <label>KODE BUKU</label>
                                 <div class="form-group">
-                                    <input type="text" id="valuenya" name="kode_buku" class="form-control" placeholder="Akan dibuat otomastis..." required>
+									<input type="text" id="valuenya" value="{{ $k->id }}" style="display:none;" readonly name="id_buku" class="form-control" placeholder="Akan dibuat otomastis..." required>
+                                    <input type="text" id="valuenya" value=" {{ $k->kode_buku }} " readonly name="kode_buku" class="form-control" placeholder="Akan dibuat otomastis..." required>
                                 </div>
-                                <a href="javascript:void(0)" onclick="ff()" class="btn btn-primary">Generate kode</a>
+                                 <!-- <a href="javascript:void(0)" onclick="ff()" class="btn btn-primary" disabled>Generate kode</a> -->
                             </div>
                         </div>               
-                    
+                    @endforeach
                             <button type="submit" onclick="return hapus_confirm()" class="btn btn-info btn-fill pull-right">Submit</button>
                             
                         <div class="clearfix"></div>
