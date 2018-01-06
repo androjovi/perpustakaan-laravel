@@ -1,2 +1,3 @@
 # perpustakaan-laravel
-Project kecil berbasis laravel
+Project pertama saya menggunakan laravel
+remake dari yang ci3
